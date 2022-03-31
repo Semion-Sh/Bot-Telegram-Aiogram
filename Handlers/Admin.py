@@ -1,7 +1,7 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import types
-from create_bot import dp, bot
+from create_bot import bot
 from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher.filters import Text
 from DateBase import SqlLiteDb
@@ -10,6 +10,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 ID = None
 Name = None
+
 
 class FSMAdmin(StatesGroup):
     Photo = State()
@@ -91,11 +92,11 @@ async def delete_item(message: types.Message):
         read = await SqlLiteDb.sql_read2()
         for ret in read:
             await bot.send_photo(message.from_user.id, ret[0], f'{ret[1]}\nAbout him:{ret[2]}\nGirlfriend: {ret[-1]}')
-            await bot.send_message(message.from_user.id, text='^^^', reply_markup=InlineKeyboardMarkup().\
-                add(InlineKeyboardButton(f'delete {ret[1]}', callback_data=f'del {ret[1]}')))
+            await bot.send_message(message.from_user.id, text='^^^', reply_markup=InlineKeyboardMarkup(). \
+                                   add(InlineKeyboardButton(f'delete {ret[1]}', callback_data=f'del {ret[1]}')))
 
 
-def handlers_for_Admin(dp: Dispatcher):
+def handlers_for_admin(dp: Dispatcher):
     dp.register_message_handler(cm_start, commands=['upload'], state=None)
     dp.register_message_handler(load_photo, content_types=['photo'], state=FSMAdmin.Photo)
     dp.register_message_handler(load_name, state=FSMAdmin.Name)

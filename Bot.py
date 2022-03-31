@@ -1,6 +1,7 @@
-from aiogram.utils import executor
 from create_bot import dp
 from DateBase import SqlLiteDb
+from aiogram.utils import executor
+from Handlers import Client, Other, Admin
 
 
 async def start_bot(_):
@@ -8,10 +9,8 @@ async def start_bot(_):
     SqlLiteDb.sql_start()
 
 
-from Handlers import Client, Other, Admin
-
+Admin.handlers_for_admin(dp)
 Client.register_handlers_client(dp)
-Admin.handlers_for_Admin(dp)
 Other.register_handlers_other(dp)
 
 if __name__ == '__main__':
