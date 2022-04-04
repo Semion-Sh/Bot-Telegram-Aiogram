@@ -2,15 +2,16 @@ from create_bot import bot
 
 
 async def football_poll():
-    await bot.send_poll(chat_id='-618708229', question='Рафиева 55, 21:30(начало)', options=['Буду', 'Не буду'],
+    await bot.send_poll(chat_id='-618708229', question='Рафиева 55, 21:30(начало)',
+                        options=['Буду', 'Не буду'],
                         is_anonymous=False)
 
 
-# -1001312541304
+# -1001312541304 football chat id
 
 
 async def sky_time_poll_1():
-    await bot.send_poll(chat_id='-1001323540103', question=' Репетиция завтра в 18:00 (Четверг)',
+    await bot.send_poll(chat_id='-625405160', question=' Репетиция завтра в 18:00 (Четверг)',
                         options=['Буду', 'Не буду'],
                         is_anonymous=False)
 
