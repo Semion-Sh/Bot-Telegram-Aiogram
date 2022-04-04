@@ -56,7 +56,7 @@ async def mat_block(message: types.Message):
 
 
 async def spam_start():
-    aioschedule.every(5).seconds.do(football_poll)
+    aioschedule.every(1).hours.do(football_poll)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
@@ -67,7 +67,7 @@ async def spam_start():
 # # sky_time_poll poll_1
 loop = asyncio.get_event_loop()
 async def spam_start1():
-    aioschedule.every(10).seconds.do(sky_time_poll_1)
+    aioschedule.every(1).days.at('12:00').do(sky_time_poll_1)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
