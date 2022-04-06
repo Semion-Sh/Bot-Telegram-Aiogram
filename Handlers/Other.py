@@ -1,9 +1,10 @@
 from aiogram import types
 import json, string
-from create_bot import bot
+from create_bot import bot, dp
 from aiogram.dispatcher import Dispatcher
 import asyncio, aioschedule
 from kinds_of_poll import football_poll, sky_time_poll_1, sky_time_poll_2
+from filters import IsPrivat
 
 d = {
     'а': ['а', 'a', '@'],
@@ -50,60 +51,21 @@ async def mat_block(message: types.Message):
         await message.delete()
 
 
-
 # football poll
-# loop = asyncio.get_event_loop()
-
-
 async def spam_start():
-    aioschedule.every(1).hours.do(football_poll)
+    aioschedule.every(1).sunday.at('12:00').do(football_poll)
+    aioschedule.every(1).thursday.at('12:00').do(sky_time_poll_1)
+    aioschedule.every(1).friday.at('12:00').do(sky_time_poll_2)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
-# loop.run_until_complete(spam_start())
 
 
-
-# # sky_time_poll poll_1
-loop = asyncio.get_event_loop()
-async def spam_start1():
-    aioschedule.every(1).days.at('12:00').do(sky_time_poll_1)
-    while True:
-        await aioschedule.run_pending()
-        await asyncio.sleep(1)
-# loop.run_until_complete(spam_start1())
-
-#
-# # sky_time_poll poll_2
-# loop = asyncio.get_event_loop()
-# async def spam_start2():
-#     aioschedule.every(1).friday.at("12:00").do(sky_time_poll_2)
-#     while True:
-#         await aioschedule.run_pending()
-#         await asyncio.sleep(1)
-# try:
-#     loop.run_until_complete(spam_start2())
-# except KeyboardInterrupt:
-#     exit(0)
-
-
-# from apscheduler.schedulers.blocking import BlockingScheduler
-#
-# sched = BlockingScheduler()
-#
-#
-# @sched.scheduled_job('interval', seconds=3)
-# async def timed_job():
-#     await bot.send_message(football_poll)
-#
-#
-# @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
-# def scheduled_job():
-#     print('This job is run every weekday at 5pm.')
-#
-#
-# sched.start()
+async def empty(message: types.message):
+    if message.text == 'asdfghjkl':
+        await message.answer('This command is not found')
 
 
 def register_handlers_other(dp: Dispatcher):
     dp.register_message_handler(mat_block)
+    dp.register_message_handler(empty, IsPrivat)

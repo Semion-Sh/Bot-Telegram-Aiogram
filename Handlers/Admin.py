@@ -96,7 +96,7 @@ async def delete_item(message: types.Message):
                                    add(InlineKeyboardButton(f'delete {ret[1]}', callback_data=f'del {ret[1]}')))
 
 
-def handlers_for_admin(dp: Dispatcher):
+def register_handlers_admin(dp: Dispatcher):
     dp.register_message_handler(cm_start, commands=['upload'], state=None)
     dp.register_message_handler(load_photo, content_types=['photo'], state=FSMAdmin.Photo)
     dp.register_message_handler(load_name, state=FSMAdmin.Name)

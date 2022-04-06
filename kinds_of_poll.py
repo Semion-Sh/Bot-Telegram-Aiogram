@@ -17,6 +17,7 @@ async def sky_time_poll_1():
 
 
 async def sky_time_poll_2():
-    await bot.send_poll(chat_id='-1001323540103', question='Репетиция завтра в 19:30 (Суббота)',
+    await bot.send_poll(chat_id='-625405160', question='Репетиция завтра в 19:30 (Суббота)',
                         options=['Буду', 'Не буду'],
                         is_anonymous=False)
+# -1001323540103

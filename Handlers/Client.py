@@ -11,6 +11,7 @@ async def commands_start(message: types.Message):
     except:
         await message.reply('Чтобы я смог с тобой общаться, напиши мне: https://web.telegram.org/z/#5258746451')
 
+
 async def commands_help(message: types.Message):
     await bot.send_message(message.from_user.id, '''
     Список команд:
@@ -31,9 +32,3 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(commands_help, commands=['help'])
     dp.register_message_handler(boys, commands=['Boys'])
     dp.register_message_handler(creator, commands=['Admin'])
-    dp.register_message_handler(empty)
-
-
-
-async def empty(message: types.message):
-    await message.answer('This command is not found')
