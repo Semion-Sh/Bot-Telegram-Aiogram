@@ -1,10 +1,11 @@
 from aiogram import types
 import json, string
-from create_bot import bot, dp
 from aiogram.dispatcher import Dispatcher
 import asyncio, aioschedule
 from kinds_of_poll import football_poll, sky_time_poll_1, sky_time_poll_2
 from filters import IsPrivat
+from aiogram.types import BotCommand
+
 
 d = {
     'а': ['а', 'a', '@'],
@@ -66,6 +67,14 @@ async def empty(message: types.message):
         await message.answer('This command is not found')
 
 
+async def set_default_commands(dp):
+    await dp.bot.set_my_commands([
+        BotCommand('/Admin', ' - профиль создателя Бота'),
+        BotCommand('/help', ' - профиль hghghghghg Бота'),
+    ])
+
+
 def register_handlers_other(dp: Dispatcher):
     dp.register_message_handler(mat_block)
     dp.register_message_handler(empty, IsPrivat)
+    dp.register_message_handler(set_default_commands)

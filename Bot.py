@@ -5,18 +5,7 @@ from Handlers import Client, Other, Admin
 import asyncio, filters
 from Handlers.Other import spam_start
 from aiogram import Bot
-from aiogram.types import BotCommand, BotCommandScopeDefault
-from aiogram import types
-
-
-async def set_all_default_commands(bot: Bot):
-    await set_default_commands(bot)
-
-
-async def set_default_commands(bot: Bot):
-    return await bot.set_my_commands(
-        commands=[BotCommand('Admin', ' - профиль создателя Бота')]
-    )
+from aiogram.types import BotCommand
 
 
 async def start_bot(_):
@@ -24,8 +13,6 @@ async def start_bot(_):
     SqlLiteDb.sql_start()
     asyncio.create_task(spam_start())
     filters.setup(dp)
-    # set_default_commands
-
 
 
 Admin.register_handlers_admin(dp)
