@@ -6,7 +6,6 @@ from kinds_of_poll import football_poll, sky_time_poll_1, sky_time_poll_2
 from filters import IsPrivat
 from aiogram.types import BotCommand
 
-
 d = {
     'а': ['а', 'a', '@'],
     'б': ['б', '6', 'b'],
@@ -48,22 +47,23 @@ async def mat_block(message: types.Message):
     if {i.lower().translate(str.maketrans('', '', string.punctuation)) for i in message.text.split()} \
             .intersection(set(json.load(open('cenz.json')))):
         name = message.from_user.first_name
-        await message.answer(f'{name}, ты же христианин, плохие слова запрещены!')
+        await message.answer(f'{name}, плохие слова запрещены!')
         await message.delete()
 
 
 # football poll
 async def spam_start():
-    aioschedule.every(1).sunday.at('12:00').do(football_poll)
-    aioschedule.every(1).wednesday.at('12:00').do(sky_time_poll_1)
-    aioschedule.every(1).friday.at('12:00').do(sky_time_poll_2)
+    aioschedule.every(1).sunday.at('09:00').do(football_poll)
+    aioschedule.every(1).wednesday.at('09:00').do(sky_time_poll_1)
+    aioschedule.every(1).friday.at('09:00').do(sky_time_poll_2)
+    aioschedule.every(1).tuesday.at('09:00').do(sky_time_poll_2)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
 
 
 async def empty(message: types.message):
-    if message.text == 'asdfghjkl':
+    if message.text:
         await message.answer('This command is not found')
 
 
