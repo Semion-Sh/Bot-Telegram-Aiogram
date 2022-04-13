@@ -3,6 +3,8 @@ from create_bot import bot
 from aiogram.dispatcher import Dispatcher
 from Keyboards import main_kb
 from DateBase import SqlLiteDb
+from aiogram.types import BotCommand
+from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
 
 
 async def commands_start(message: types.Message):
@@ -31,4 +33,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(commands_start, commands=['start'])
     dp.register_message_handler(commands_help, commands=['help'])
     dp.register_message_handler(boys, commands=['Boys'])
-    dp.register_message_handler(creator, commands=['Admin'])
+    dp.register_message_handler(creator, ChatTypeFilter(chat_type=types.ChatType.PRIVATE), commands=['Admin'])

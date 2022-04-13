@@ -3,8 +3,14 @@ import json, string
 from aiogram.dispatcher import Dispatcher
 import asyncio, aioschedule
 from kinds_of_poll import football_poll, sky_time_poll_1, sky_time_poll_2
-from filters import IsPrivat
 from aiogram.types import BotCommand
+from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
+
+
+bot_commands = [
+        BotCommand('/admin', 'профиль создателя Бота'),
+    ]
+
 
 d = {
     'а': ['а', 'a', '@'],
@@ -56,25 +62,15 @@ async def spam_start():
     aioschedule.every(1).sunday.at('09:00').do(football_poll)
     aioschedule.every(1).wednesday.at('09:00').do(sky_time_poll_1)
     aioschedule.every(1).friday.at('09:00').do(sky_time_poll_2)
-    aioschedule.every(1).tuesday.at('09:00').do(sky_time_poll_2)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
 
 
 async def empty(message: types.message):
-    if message.text:
-        await message.answer('This command is not found')
-
-
-async def set_default_commands(dp):
-    await dp.bot.set_my_commands([
-        BotCommand('/Admin', ' - профиль создателя Бота'),
-        BotCommand('/help', ' - профиль hghghghghg Бота'),
-    ])
+    await message.answer('This command is not found')
 
 
 def register_handlers_other(dp: Dispatcher):
     dp.register_message_handler(mat_block)
-    dp.register_message_handler(empty, IsPrivat)
-    dp.register_message_handler(set_default_commands)
+    dp.register_message_handler(empty, ChatTypeFilter(chat_type=types.ChatType.PRIVATE))
