@@ -8,9 +8,9 @@ from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
 
 
 bot_commands = [
-        BotCommand('/admin', 'профиль создателя Бота'),
-    ]
-
+    BotCommand('/admin', 'профиль создателя Бота'),
+    # BotCommand('/bible', 'чтение Библии')
+]
 
 d = {
     'а': ['а', 'a', '@'],
@@ -67,10 +67,5 @@ async def spam_start():
         await asyncio.sleep(1)
 
 
-async def empty(message: types.message):
-    await message.answer('This command is not found')
-
-
 def register_handlers_other(dp: Dispatcher):
     dp.register_message_handler(mat_block)
-    dp.register_message_handler(empty, ChatTypeFilter(chat_type=types.ChatType.PRIVATE))
