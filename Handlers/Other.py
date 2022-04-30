@@ -59,7 +59,7 @@ async def mat_block(message: types.Message):
 
 # football poll
 async def spam_start():
-    aioschedule.every(1).sunday.at('09:00').do(football_poll)
+    aioschedule.every(1).sunday.at('08:00').do(football_poll)
     aioschedule.every(1).wednesday.at('09:00').do(sky_time_poll_1)
     aioschedule.every(1).friday.at('09:00').do(sky_time_poll_2)
     while True:
