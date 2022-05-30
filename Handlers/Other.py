@@ -2,7 +2,7 @@ from aiogram import types
 import json, string
 from aiogram.dispatcher import Dispatcher
 import asyncio, aioschedule
-from kinds_of_poll import football_poll_rafieva, sky_time_poll_1, sky_time_poll_2, football_poll_ratomka
+from kinds_of_poll import football_poll_rafieva_ratomka, test_football_poll
 from aiogram.types import BotCommand
 from aiogram.dispatcher.filters.builtin import CommandStart, ChatTypeFilter
 
@@ -59,11 +59,7 @@ async def mat_block(message: types.Message):
 
 # football poll
 async def spam_start():
-    aioschedule.every(1).sunday.at('08:00').do(football_poll_rafieva)
-    aioschedule.every(1).sunday.at('08:00').do(football_poll_ratomka)
-
-    # aioschedule.every(1).wednesday.at('09:00').do(sky_time_poll_1)
-    # aioschedule.every(1).friday.at('09:00').do(sky_time_poll_2)
+    aioschedule.every(1).sunday.at('08:00').do(football_poll_rafieva_ratomka)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
